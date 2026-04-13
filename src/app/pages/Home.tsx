@@ -2,9 +2,8 @@ import { motion } from 'motion/react';
 import { ArrowRight, Truck, Shield, DollarSign, Award } from 'lucide-react';
 import { Link } from 'react-router';
 import { ProductCard } from '../components/ProductCard';
-import CountUp from "react-countup";
 import { products } from '../data/products';
-import { FiTool } from "react-icons/fi";
+import CountUp from "react-countup";
 
 export function Home() {
   const featuredProducts = products.slice(0, 8);
@@ -18,117 +17,158 @@ export function Home() {
 
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-         <section className="min-h-screen flex items-center relative w-full bg-linear-to-br from-gray-50 via-white to-gray-50 overflow-hidden">
 
-            {/* Background decorative elements */}
-            <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-100 rounded-full blur-xl opacity-60 animate-pulse"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-blue-200 rounded-full blur-xl opacity-60 animate-pulse" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute bottom-10 left-20 w-72 h-72 bg-blue-50 rounded-full blur-xl opacity-60 animate-pulse" style={{ animationDelay: '4s' }}></div>
+      {/* HERO SECTION */}
+      <section
+        className="relative min-h-screen flex items-center overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg, #0b1f4b 0%, #1e3a8a 40%, #38bdf8 100%)"
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+
+            {/* LEFT */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="text-white"
+            >
+              <div className="inline-block px-4 py-2 mt-8 lg:mt-0 rounded-full mb-8 bg-white/10 backdrop-blur border border-white/20 shadow-lg">
+                <span className="font-semibold text-sm text-white/90">
+                  ✨ Welcome to Electronics Store
+                </span>
+              </div>
+              <h1 className="text-3xl md:text-5xl font-bold mb-5 leading-tight">
+                সুলভ মূল্যে ইলেকট্রনিক্স পণ্য
+                <span className="text-[#fbbf24]"> এখন আপনার <br /> হাতের নাগালে</span>
+              </h1>
+
+              <p className="text-lg md:text-xl mb-7 text-blue-100">
+                ওয়াকি-টকি • কুলার ফ্যান • রাউটার • ট্রিমার • চার্জার ফ্যান
+              </p>
+
+              <div className="flex flex-wrap gap-4 mt-2">
+                <Link to="/products">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="bg-[#ff6b35] hover:bg-[#ff5722] text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-2xl flex items-center gap-2"
+                  >
+                    অর্ডার করুন
+                    <ArrowRight className="w-5 h-5" />
+                  </motion.button>
+                </Link>
+
+                <a href="https://wa.me/8801328105216" target="_blank" rel="noopener noreferrer">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="bg-white/90 backdrop-blur text-blue-700 px-8 py-4 rounded-xl font-semibold text-lg shadow-2xl border border-white/40"
+                  >
+                    WhatsApp এ যোগাযোগ
+                  </motion.button>
+                </a>
+              </div>
+
+              {/* STATS (FIXED COLOR) */}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-8 mt-12">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-white mb-1">
+                    <CountUp start={1} end={50} duration={2} />+
+                  </div>
+                  <div className="text-blue-100">Products</div>
+                </div>
+
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-white mb-1">
+                    <CountUp start={200} end={1000} duration={2.5} />+
+                  </div>
+                  <div className="text-blue-100">Customers</div>
+                </div>
+
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-white mb-1">
+                    <CountUp end={24} duration={1.5} />/7
+                  </div>
+                  <div className="text-blue-100">Support</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* RIGHT */}
+            <div className="flex-1 flex justify-center lg:justify-end mt-10 lg:mt-0 mb-18">
+              <div className="relative">
+
+                {/* MAIN GLASS CARD */}
+                <div className="relative w-64 h-64 lg:w-80 lg:h-80 
+      bg-white/10 backdrop-blur-2xl 
+      rounded-3xl shadow-2xl p-6 
+      flex flex-col items-center justify-center 
+      border border-white/30 overflow-hidden">
+
+                  {/* Glass highlight layer */}
+                  <div className="absolute inset-0 rounded-3xl 
+        bg-gradient-to-br from-white/20 to-transparent opacity-40">
+                  </div>
+
+                  {/* Glow */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-6 left-6 w-24 h-24 bg-blue-400/50 rounded-full blur-3xl opacity-50"></div>
+                    <div className="absolute bottom-6 right-6 w-24 h-24 bg-cyan-300/50 rounded-full blur-3xl opacity-50"></div>
+                  </div>
+
+                  {/* CONTENT */}
+                  <div className="text-center relative z-10">
+
+                    {/* ICON */}
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg">
+                      <span className="text-white text-xl">⚡</span>
+                    </div>
+
+                    {/* TITLE */}
+                    <h3 className="text-lg font-semibold text-white mb-2">
+                      Electronics Store
+                    </h3>
+
+                    {/* SUBTITLE */}
+                    <p className="text-white/80 text-sm">
+                      Quality • Affordable • Reliable
+                    </p>
+
+                  </div>
+                </div>
+
+                {/* TOP BADGE */}
+                <div className="absolute -top-4 -right-4 bg-blue-500 text-white px-4 py-2 rounded-xl shadow-xl animate-bounce">
+                  Best Quality
+                </div>
+
+                {/* BOTTOM BADGE */}
+                <div
+                  className="absolute -bottom-4 -left-4 bg-green-500 text-white px-3 py-2 rounded-xl shadow-xl animate-bounce"
+                  style={{ animationDelay: '1s' }}
+                >
+                  ✓ Trusted
+                </div>
+
+              </div>
+            </div>
+
+          </div>
         </div>
 
-            <div className="max-w-7xl mx-auto relative z-10">
-                <div className="flex flex-col lg:flex-row items-center justify-between pb-16 px-4 lg:px-8">
-                    {/* Left Content */}
-                    <div className="flex-1 text-center lg:text-left mb-12 lg:mb-0 lg:pr-12">
-                        <div className="inline-flex items-center px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-blue-600 text-sm font-medium mb-6">
-                            
-                            ✨ Welcome to Electronics Store
-                        </div>
+        {/* CURVE */}
+        <div className="absolute bottom-[-30px] left-0 right-0">
+          <svg viewBox="0 0 1440 160" className="w-full">
+            <path
+              d="M0 100C120 120 240 140 360 130C480 120 600 80 720 70C840 60 960 90 1080 110C1200 130 1320 120 1440 100V160H0Z"
+              fill="white"
+            />
+          </svg>
+        </div>
 
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                            Expert Repair Services
-                            <br />
-
-                            <motion.span
-                                animate={{
-                                    color: ['#4f46e5', '#7c3aed', '#ec4899', '#f59e0b', '#10b981', '#4f46e5'],
-                                    transition: { duration: 4, repeat: Infinity, ease: "linear" },
-                                }}
-                                className="drop-shadow-lg"
-                            >
-                                You Can Trust
-                            </motion.span>
-                            
-                        </h1>
-
-
-                        <p className="text-xl text-gray-600 mb-6 leading-relaxed max-w-2xl lg:max-w-none ">
-                            Connect with skilled professionals, share your expertise, or find the perfect repair service for your needs. Our platform makes booking reliable services simple and secure.
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <Link href="/services" className="inline-flex items-center justify-center mx-10 lg:mx-0 px-6 py-3 bg-linear-to-r bg-[#4640c2] hover:bg-[#3b35a5] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transform transition-all duration-300 text-base border-0 hover:scale-105">
-                            <FiTool className="mr-2" /> Browse Services
-                                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                </svg>
-                            </Link>
-                        </div>
-
-                        {/* Stats */}
-                        <div className="flex flex-wrap justify-center lg:justify-start gap-8 mt-12">
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-gray-900 mb-1">
-                                    <CountUp start={800} end={1000} duration={2} separator="," />+
-                                </div>
-                                <div className="text-gray-600">Services</div>
-                            </div>
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-gray-900 mb-1">
-                                    <CountUp start={14000} end={15000} duration={2.5} separator="," />+
-                                </div>
-                                <div className="text-gray-600">Users</div>
-                            </div>
-                            <div className="text-center">
-                                <div className="text-3xl font-bold text-gray-900 mb-1">
-                                    <CountUp end={24} duration={1.5} />/7
-                                </div>
-                                <div className="text-gray-600">Support</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Right Visual */}
-                    <div className="flex-1 flex justify-center lg:justify-end">
-                        <div className="relative">
-                            <div className="relative w-64 h-64 lg:w-80 lg:h-80 bg-linear-to-br from-blue-50 via-yellow-50 to-red-100 rounded-3xl shadow-2xl p-6 flex items-center justify-center border-2 border-blue-100">
-                                <div className="absolute inset-0 pointer-events-none">
-                                    <div className="absolute top-6 left-8 w-16 h-16 bg-blue-200 rounded-full blur-2xl opacity-40"></div>
-                                    <div className="absolute bottom-8 right-8 w-20 h-20 bg-yellow-200 rounded-full blur-2xl opacity-30"></div>
-                                    <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-red-100 rounded-full blur-2xl opacity-20 transform -translate-x-1/2 -translate-y-1/2"></div>
-                                </div>
-                                <div className="text-center relative z-10">
-                                    <div className="w-16 h-16 bg-linear-to-br from-blue-500 to-yellow-400 rounded-2xl mx-auto mb-3 flex items-center justify-center shadow-lg">
-                                        <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                                        </svg>
-                                    </div>
-                                    <h3 className="text-lg font-semibold text-blue-700 mb-1">Verified & Trusted</h3>
-                                    <p className="text-blue-600 text-sm">All services are checked for quality.</p>
-                                </div>
-                            </div>
-
-                            {/* Floating elements */}
-                            <div className="absolute -top-3 -right-3 w-12 h-12 bg-yellow-400 rounded-2xl shadow-lg flex items-center justify-center animate-bounce">
-                                <span className="text-white font-bold text-lg">★</span>
-                            </div>
-                            <div className="absolute -bottom-3 -left-3 w-12 h-12 bg-green-400 rounded-2xl shadow-lg flex items-center justify-center animate-bounce" style={{ animationDelay: '1s' }}>
-                                <span className="text-white font-bold text-base">✓</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Bottom wave */}
-            <div className="absolute bottom-0 left-0 w-full">
-                <svg className="w-full h-20" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="white" d="M0,0L48,10C96,20,192,40,288,50C384,60,480,60,576,50C672,40,768,20,864,20C960,20,1056,40,1152,50C1248,60,1344,60,1392,60L1440,60L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" />
-                </svg>
-            </div>
-        </section>
+      </section>
 
       {/* PRODUCTS */}
       <section className="py-24 px-4 sm:px-6 lg:px-8">
@@ -136,6 +176,7 @@ export function Home() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Featured Products</h2>
           <p className="text-xl text-gray-600">Best deals on quality electronics</p>
         </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {featuredProducts.map((product, index) => (
             <ProductCard key={product.id} product={product} index={index} />
@@ -149,6 +190,7 @@ export function Home() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Why Choose Us</h2>
           <p className="text-xl text-gray-600">Your satisfaction is our priority</p>
         </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {whyChooseUs.map((item, index) => (
             <motion.div
@@ -165,6 +207,7 @@ export function Home() {
           ))}
         </div>
       </section>
+
     </div>
   );
 }

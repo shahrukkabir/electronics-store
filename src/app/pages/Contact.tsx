@@ -25,7 +25,7 @@ export function Contact() {
     <div className="bg-gray-50">
 
       {/* Header */}
-      <section className="bg-[#4640c2] text-white py-14">
+      <section className="bg-[#4640c2] text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold mb-2">যোগাযোগ করুন</h1>
           <p className="text-blue-100 text-sm">
@@ -82,7 +82,7 @@ export function Contact() {
                 required
               />
 
-              <button className="w-full bg-[#4640c2] hover:bg-[#3b35a5] text-white py-2.5 rounded-md font-medium flex items-center justify-center gap-2">
+              <button className="cursor-pointer w-full bg-[#4640c2] hover:bg-[#3b35a5] text-white py-2.5 rounded-md font-medium flex items-center justify-center gap-2">
                 <Send size={18} />
                 মেসেজ পাঠান
               </button>
@@ -122,17 +122,24 @@ export function Contact() {
               </div>
             </div>
 
-            {/* WhatsApp Quick */}
-            <a href="https://wa.me/8801328105216" target="_blank">
-              <div className="bg-[#25D366] text-white p-5 rounded-lg flex items-center gap-4 hover:scale-[1.02] transition">
-                <MessageCircle />
-                <div>
-                  <p className="font-semibold">WhatsApp</p>
-                  <p className="text-sm">Chat now</p>
+            <a
+              href="https://wa.me/8801328105216"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="bg-white p-5 rounded-lg shadow-sm border flex items-center gap-4 hover:shadow-md transition cursor-pointer">
+
+                <div className="bg-blue-100 p-3 rounded-full">
+                  <MessageCircle className="text-blue-600" />
                 </div>
+
+                <div>
+                  <p className="text-sm text-gray-500">WhatsApp</p>
+                  <p className="font-semibold">+880 1328-105216</p>
+                </div>
+
               </div>
             </a>
-
           </div>
         </div>
       </section>

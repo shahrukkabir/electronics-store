@@ -40,12 +40,12 @@ export function Home() {
                 </span>
               </div>
               <h1 className="text-3xl md:text-5xl font-bold mb-5 leading-tight">
-                সুলভ মূল্যে ইলেকট ্রনিক্স পণ্য
+                সুলভ মূল্যে ইলেকট্রনিক্স  পণ্য
                 <span className="text-[#fbbf24]"> এখন আপনার <br /> হাতের নাগালে</span>
               </h1>
 
               <p className="text-lg md:text-xl mb-7 text-blue-100">
-                ওয়াকি-ট কি • কুলার ফ্যান • রাউট ার • ট ্রিমার • চার্জার ফ্যান
+                ওয়াকি-ট কি • কুলার ফ্যান • রাউটার  • ট্রিমার  • চার্জার ফ্যান
               </p>
 
               <div className="flex flex-wrap gap-4 mt-2">

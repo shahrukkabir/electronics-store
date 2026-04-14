@@ -108,7 +108,7 @@ export function ProductDetail() {
 
                 <div className="mb-8">
                   <span className="text-5xl font-bold text-[#ff6b35]">
-                    ৳{product.price.toFixed(2)}
+                    ট {product.price.toFixed(2)}
                   </span>
                 </div>
 

@@ -148,8 +148,8 @@ export function Checkout() {
                       required
                       className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#ff6b35] focus:border-transparent outline-none transition-all"
                     >
-                      <option value="inside">Chittagong ভিতরে (৳60)</option>
-                      <option value="outside">Chittagong বাইরে (৳150)</option>
+                      <option value="inside">Chittagong ভিতরে (ট 60)</option>
+                      <option value="outside">Chittagong বাইরে (ট 150)</option>
                     </select>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ export function Checkout() {
                       <p className="font-semibold text-sm truncate text-gray-900">{item.name}</p>
                       <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
                       <p className="text-sm font-bold text-[#ff6b35] mt-1">
-                        ৳{(item.price * item.quantity).toFixed(2)}
+                        ট {(item.price * item.quantity).toFixed(2)}
                       </p>
                     </div>
                   </div>
@@ -213,17 +213,17 @@ export function Checkout() {
               <div className="border-t border-gray-200 pt-5 space-y-3">
                 <div className="flex justify-between text-gray-600 text-lg">
                   <span>Subtotal</span>
-                  <span className="font-semibold">৳{totalPrice.toFixed(2)}</span>
+                  <span className="font-semibold">ট {totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600 text-lg">
                   <span>Delivery ({deliveryLocation === 'inside' ? 'Chittagong ভিতরে' : 'Chittagong বাইরে'})</span>
-                  <span className="font-semibold text-green-600">৳{deliveryLocation === 'inside' ? '60' : '150'}</span>
+                  <span className="font-semibold text-green-600">ট {deliveryLocation === 'inside' ? '60' : '150'}</span>
                 </div>
                 <div className="border-t border-gray-200 pt-3 mt-3">
                   <div className="flex justify-between items-center">
                     <span className="text-xl font-bold text-gray-900">Total</span>
                     <span className="text-3xl font-bold text-[#ff6b35]">
-                      ৳{(totalPrice + (deliveryLocation === 'inside' ? 60 : 150)).toFixed(2)}
+                      ট {(totalPrice + (deliveryLocation === 'inside' ? 60 : 150)).toFixed(2)}
                     </span>
                   </div>
                 </div>

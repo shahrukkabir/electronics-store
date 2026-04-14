@@ -18,7 +18,7 @@ export function About() {
     {
       icon: Shield,
       title: 'Secure Payment',
-      titleBn: 'নিরাপদ পেমেন্ট',
+      titleBn: 'নিরাপদ পেমেন্ট ',
       description: 'Cash on Delivery available',
     },
     {
@@ -29,8 +29,8 @@ export function About() {
     },
     {
       icon: Users,
-      title: '10,000+ Customers',
-      titleBn: '১০,০০০+ গ্রাহক',
+      title: '1,000+ Customers',
+      titleBn: '১,০০০+ গ্রাহক',
       description: 'Serving customers across Bangladesh',
     },
     {
@@ -69,13 +69,13 @@ export function About() {
             viewport={{ once: true }}
             className="bg-gray-50 rounded-2xl p-8 md:p-12"
           >
-            <h3 className="text-3xl font-bold mb-6 text-gray-900">আমাদের গল্প / Our Story</h3>
+            <h3 className="text-3xl font-bold mb-6 text-blue-700">আমাদের গল্প / Our Story</h3>
             <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
               <p>
-                <strong>Electronics Store</strong> হল একটি বিশ্বস্ত অনলাইন ইলেকট্রনিক্স শপ যা চট্টগ্রাম থেকে সারাদেশে পণ্য সরবরাহ করে থাকে।
+                <strong>Electronics Store</strong> হল একটি বিশ্বস্ত অনলাইন ইলেকট্রনিক্স   শপ যা চট্টগ্রাম গ্রাম থেকে সারাদেশে পণ্য সরবরাহ করে থাকে।
               </p>
               <p>
-                আমরা বিভিন্ন ধরনের ইলেকট্রনিক্স পণ্য যেমন - ওয়াকিটকি, রাইস কুকার, ব্লেন্ডার, আয়রন, ট্রিমার, ফ্যান, রাউটার সহ আরও অনেক কিছু সরবরাহ করি।
+                আমরা বিভিন্ন ধরনের ইলেকট্রনিক্স  পণ্য যেমন - ওয়াকিটকি, রাইস কুকার, ব্লেন্ডার, আয়রন, ট্রিমার, ফ্যান, রাউটার সহ আরও অনেক কিছু সরবরাহ করি।
               </p>
               <p>
                 We are committed to providing quality electronics at affordable prices with fast delivery across Bangladesh. Customer satisfaction is our top priority.
@@ -97,8 +97,7 @@ export function About() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h3 className="text-4xl font-bold mb-4 text-gray-900">কেন আমাদের বেছে নিবেন?</h3>
-            <p className="text-xl text-gray-600">Why Choose Us?</p>
+            <h3 className="text-4xl font-bold mb-4 text-blue-700">কেন আমাদের বেছে নিবেন?</h3>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -141,7 +140,7 @@ export function About() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                  className="bg-[#25D366] text-white px-10 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-[#128C7E] transition-all"
+                  className="bg-[#25D366] cursor-pointer text-white px-10 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-[#128C7E] transition-all"
                 >
                   WhatsApp এ যোগাযোগ করুন
                 </motion.button>
@@ -150,7 +149,7 @@ export function About() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                  className="bg-white text-blue-600 px-10 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-gray-50 transition-all"
+                  className="bg-white cursor-pointer text-blue-600 px-10 py-4 rounded-xl font-bold text-lg shadow-xl hover:bg-gray-50 transition-all"
                 >
                   Messenger এ মেসেজ করুন
                 </motion.button>

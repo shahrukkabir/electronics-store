@@ -82,7 +82,7 @@ export function Cart() {
                         </h3>
                       </Link>
                       <p className="text-gray-500 text-sm mb-3">{item.category}</p>
-                      <p className="text-2xl font-bold text-[#ff6b35]">৳{item.price.toFixed(2)}</p>
+                      <p className="text-2xl font-bold text-[#ff6b35]">ট {item.price.toFixed(2)}</p>
                     </div>
 
                     {/* Actions */}
@@ -136,20 +136,20 @@ export function Cart() {
               <div className="space-y-5 mb-8">
                 <div className="flex justify-between text-gray-600 text-lg">
                   <span>Subtotal</span>
-                  <span className="font-semibold">৳{totalPrice.toFixed(2)}</span>
+                  <span className="font-semibold">ট {totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600 text-lg">
                   <span>Delivery (Chittagong ভিতরে)</span>
-                  <span className="text-green-600 font-semibold">৳60</span>
+                  <span className="text-green-600 font-semibold">ট 60</span>
                 </div>
                 <div className="text-xs text-gray-500">
-                  * Chittagong বাইরে: ৳150
+                  * Chittagong বাইরে: ট 150
                 </div>
                 <div className="border-t border-gray-200 pt-5">
                   <div className="flex justify-between items-center">
                     <span className="text-2xl font-bold text-gray-900">Total</span>
                     <span className="text-3xl font-bold text-[#ff6b35]">
-                      ৳{(totalPrice + 60).toFixed(2)}
+                      ট {(totalPrice + 60).toFixed(2)}
                     </span>
                   </div>
                 </div>

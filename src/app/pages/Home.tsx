@@ -6,7 +6,7 @@ import { products } from '../data/products';
 import CountUp from "react-countup";
 
 export function Home() {
-  const featuredProducts = products.slice(0, 8);
+  const featuredProducts = products.slice(0, 4);
 
   const whyChooseUs = [
     { icon: Truck, title: 'Fast Delivery', description: 'Quick delivery to your doorstep' },
@@ -40,12 +40,12 @@ export function Home() {
                 </span>
               </div>
               <h1 className="text-3xl md:text-5xl font-bold mb-5 leading-tight">
-                সুলভ মূল্যে ইলেকট্রনিক্স পণ্য
+                সুলভ মূল্যে ইলেকট ্রনিক্স পণ্য
                 <span className="text-[#fbbf24]"> এখন আপনার <br /> হাতের নাগালে</span>
               </h1>
 
               <p className="text-lg md:text-xl mb-7 text-blue-100">
-                ওয়াকি-টকি • কুলার ফ্যান • রাউটার • ট্রিমার • চার্জার ফ্যান
+                ওয়াকি-ট কি • কুলার ফ্যান • রাউট ার • ট ্রিমার • চার্জার ফ্যান
               </p>
 
               <div className="flex flex-wrap gap-4 mt-2">
@@ -53,7 +53,7 @@ export function Home() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.97 }}
-                    className="bg-[#ff6b35] hover:bg-[#ff5722] text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-2xl flex items-center gap-2"
+                    className="bg-[#ff6b35] hover:bg-[#ff5722] cursor-pointer text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-2xl flex items-center gap-2"
                   >
                     অর্ডার করুন
                     <ArrowRight className="w-5 h-5" />
@@ -64,7 +64,7 @@ export function Home() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.97 }}
-                    className="bg-white/90 backdrop-blur text-blue-700 px-8 py-4 rounded-xl font-semibold text-lg shadow-2xl border border-white/40"
+                    className="bg-white/90 backdrop-blur cursor-pointer text-blue-700 px-8 py-4 rounded-xl font-semibold text-lg shadow-2xl border border-white/40"
                   >
                     WhatsApp এ যোগাযোগ
                   </motion.button>
@@ -184,10 +184,21 @@ export function Home() {
             <ProductCard key={product.id} product={product} index={index} />
           ))}
         </div>
+        <div className="flex justify-center mt-14">
+          <Link to="/products">
+            <motion.button
+              whileHover={{ scale: 1.03, boxShadow: '0 10px 30px rgba(37, 99, 235, 0.3)' }}
+              whileTap={{ scale: 0.97 }}
+              className="bg-gradient-to-r cursor-pointer bg-[#4640c2] hover:bg-[#3b35a5] text-white px-10 py-4 rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            >
+              More Products →
+            </motion.button>
+          </Link>
+        </div>
       </section>
 
       {/* WHY US */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-100">
         <div className="max-w-7xl mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Why Choose Us</h2>
           <p className="text-xl text-gray-600">Your satisfaction is our priority</p>
@@ -200,8 +211,8 @@ export function Home() {
               whileHover={{ y: -8 }}
               className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl text-center"
             >
-              <div className="bg-[#ff6b35]/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                <item.icon className="w-8 h-8 text-[#ff6b35]" />
+              <div className="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                <item.icon className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
               <p className="text-gray-600">{item.description}</p>

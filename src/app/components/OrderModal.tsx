@@ -124,8 +124,8 @@ export function OrderModal({ isOpen, onClose, product }: OrderModalProps) {
                     required
                     className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff6b35] focus:border-transparent"
                   >
-                    <option value="inside">Chittagong ভিতরে (60৳)</option>
-                    <option value="outside">Chittagong বাইরে (150৳)</option>
+                    <option value="inside">Chittagong ভিতরে (60ট )</option>
+                    <option value="outside">Chittagong বাইরে (150ট )</option>
                   </select>
                 </div>
 
@@ -148,15 +148,15 @@ export function OrderModal({ isOpen, onClose, product }: OrderModalProps) {
                 <div className="bg-gray-50 rounded-lg p-4 space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Product Price</span>
-                    <span className="font-medium">৳{product.price.toFixed(2)}</span>
+                    <span className="font-medium">ট {product.price.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Delivery Charge</span>
-                    <span className="font-medium">৳{deliveryCharge}</span>
+                    <span className="font-medium">ট {deliveryCharge}</span>
                   </div>
                   <div className="border-t border-gray-200 pt-2 flex justify-between">
                     <span className="font-semibold text-gray-900">Total</span>
-                    <span className="font-bold text-lg text-[#ff6b35]">৳{total.toFixed(2)}</span>
+                    <span className="font-bold text-lg text-[#ff6b35]">ট {total.toFixed(2)}</span>
                   </div>
                 </div>
 

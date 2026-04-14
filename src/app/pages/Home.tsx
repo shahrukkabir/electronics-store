@@ -122,8 +122,10 @@ export function Home() {
                   <div className="text-center relative z-10">
 
                     {/* ICON */}
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg">
-                      <span className="text-white text-xl">⚡</span>
+                    <div className="w-16 h-16 bg-linear-to-br from-blue-500 to-yellow-400 rounded-2xl mx-auto mb-3 flex items-center justify-center shadow-lg">
+                      <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                      </svg>
                     </div>
 
                     {/* TITLE */}

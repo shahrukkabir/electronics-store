@@ -1,43 +1,100 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Building2, Check, FileText, Hash, MapPin, Phone, ShoppingBag, User } from 'lucide-react';
-import { useCart } from '../context/CartContext';
+import {
+  Building2,
+  Check,
+  FileText,
+  Hash,
+  Mail,
+  MapPin,
+  Phone,
+  ShoppingBag,
+  User,
+} from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { toast } from 'sonner';
 import { Seo } from '../components/Seo';
+import { useCart } from '../context/CartContext';
+import { sendOrderEmail } from '../lib/email';
+
+const initialCheckoutForm = {
+  name: '',
+  email: '',
+  phone: '',
+  address: '',
+  city: '',
+  postalCode: '',
+  note: '',
+};
 
 export function Checkout() {
   const { cart, totalPrice, clearCart } = useCart();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
-  const [deliveryLocation, setDeliveryLocation] = useState('inside');
+  const [deliveryLocation, setDeliveryLocation] = useState<'inside' | 'outside'>('inside');
+  const [formData, setFormData] = useState(initialCheckoutForm);
 
   const deliveryFee = deliveryLocation === 'inside' ? 60 : 150;
   const totalAmount = totalPrice + deliveryFee;
+  const deliveryLocationLabel =
+    deliveryLocation === 'inside' ? 'চট্টগ্রাম ভিতরে' : 'চট্টগ্রাম বাইরে';
+
+  useEffect(() => {
+    if (cart.length === 0 && !orderComplete) {
+      navigate('/cart');
+    }
+  }, [cart.length, navigate, orderComplete]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsProcessing(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const fullAddress = [
+      formData.address,
+      formData.city,
+      formData.postalCode ? `পোস্ট কোড: ${formData.postalCode}` : '',
+    ]
+      .filter(Boolean)
+      .join(', ');
 
-    setIsProcessing(false);
-    setOrderComplete(true);
+    try {
+      setIsProcessing(true);
 
-    setTimeout(() => {
-      clearCart();
-      navigate('/');
-    }, 3000);
+      await sendOrderEmail({
+        user_name: formData.name,
+        user_phone: formData.phone,
+        user_address: fullAddress,
+        order_items: cart
+          .map((item) => `${item.name} (x${item.quantity}) — Tk ${(item.price * item.quantity).toFixed(2)}`)
+          .join('\n'),
+        subtotal: totalPrice.toFixed(2),
+        delivery: deliveryFee.toString(),
+        total: totalAmount.toFixed(2),
+        note: formData.note || '—',
+      });
+
+      setOrderComplete(true);
+      setFormData(initialCheckoutForm);
+
+      setTimeout(() => {
+        clearCart();
+        navigate('/');
+      }, 3000);
+    } catch (error) {
+      console.error(error);
+      toast.error('অর্ডার ইমেইল পাঠানো যায়নি। .env এর EmailJS তথ্য ঠিক আছে কি না দেখুন।');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   if (cart.length === 0 && !orderComplete) {
-    navigate('/cart');
     return null;
   }
 
   if (orderComplete) {
     return (
-      <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(70,64,194,0.10),_transparent_30%),_white] flex items-center justify-center px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top_right,_rgba(70,64,194,0.10),_transparent_30%),_white] px-4">
         <Seo
           title="Order Confirmed"
           description="Your order has been placed successfully."
@@ -46,7 +103,7 @@ export function Checkout() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full rounded-[30px] border border-[#dbe2ff] bg-white p-10 text-center shadow-[0_28px_80px_rgba(37,56,134,0.14)]"
+          className="w-full max-w-md rounded-[30px] border border-[#dbe2ff] bg-white p-10 text-center shadow-[0_28px_80px_rgba(37,56,134,0.14)]"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -56,9 +113,11 @@ export function Checkout() {
           >
             <Check className="h-12 w-12 text-[#4640c2]" />
           </motion.div>
-          <h2 className="text-4xl font-bold text-[#111b38]">অর্ডার সফলভাবে সম্পন্ন হয়েছে</h2>
-          <p className="mt-4 text-lg text-[#5f688c]">আমরা খুব শিগগিরই আপনার সাথে যোগাযোগ করব।</p>
-          <p className="mt-6 text-sm text-[#7a83a9]">হোম পেজে নেওয়া হচ্ছে...</p>
+          <h2 className="text-4xl font-bold text-[#111b38]">অর্ডার সফলভাবে সম্পন্ন হয়েছে</h2>
+          <p className="mt-4 text-lg text-[#5f688c]">
+            অর্ডার ডিটেইলস ইমেইলে পাঠানো হয়েছে। আমরা খুব দ্রুত আপনার সাথে যোগাযোগ করব।
+          </p>
+          <p className="mt-6 text-sm text-[#7a83a9]">হোম পেইজে নেওয়া হচ্ছে...</p>
         </motion.div>
       </div>
     );
@@ -81,7 +140,9 @@ export function Checkout() {
             নিরাপদ ক্যাশ অন ডেলিভারি চেকআউট
           </div>
           <h1 className="mt-4 text-5xl font-bold text-[#121c39]">চেকআউট</h1>
-          <p className="mt-3 text-xl text-[#5d678b]">অর্ডার সম্পন্ন করতে আপনার তথ্যগুলো পূরণ করুন।</p>
+          <p className="mt-3 text-xl text-[#5d678b]">
+            অর্ডার সম্পন্ন করতে আপনার তথ্যগুলো পূরণ করুন।
+          </p>
         </motion.div>
 
         <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr]">
@@ -91,7 +152,7 @@ export function Checkout() {
             transition={{ delay: 0.1 }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="rounded-[30px] border border-[#dde3ff] bg-white p-6 md:p-8 shadow-[0_22px_60px_rgba(37,56,134,0.10)]">
+              <div className="rounded-[30px] border border-[#dde3ff] bg-white p-6 shadow-[0_22px_60px_rgba(37,56,134,0.10)] md:p-8">
                 <div className="mb-8">
                   <p className="text-sm font-semibold tracking-[0.18em] text-[#5d66a7]">
                     ডেলিভারি তথ্য
@@ -100,27 +161,46 @@ export function Checkout() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                  <div className="md:col-span-2">
+                  <div>
                     <label className="mb-2 block text-sm font-semibold text-[#253056]">আপনার নাম</label>
                     <div className="relative">
                       <User className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#6b75a7]" />
                       <input
                         type="text"
                         required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="আপনার নাম লিখুন"
                         className="w-full rounded-2xl border border-[#d8def6] bg-[#fbfcff] py-3.5 pl-12 pr-4 text-[#1c2543] outline-none transition focus:border-[#4640c2] focus:ring-4 focus:ring-[#4640c2]/10"
                       />
                     </div>
                   </div>
 
-                  <div className="md:col-span-2">
+                  <div>
                     <label className="mb-2 block text-sm font-semibold text-[#253056]">মোবাইল নাম্বার</label>
                     <div className="relative">
                       <Phone className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#6b75a7]" />
                       <input
                         type="tel"
                         required
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="মোবাইল নাম্বার লিখুন"
+                        className="w-full rounded-2xl border border-[#d8def6] bg-[#fbfcff] py-3.5 pl-12 pr-4 text-[#1c2543] outline-none transition focus:border-[#4640c2] focus:ring-4 focus:ring-[#4640c2]/10"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="mb-2 block text-sm font-semibold text-[#253056]">ইমেইল</label>
+                    <div className="relative">
+                      <Mail className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#6b75a7]" />
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="আপনার ইমেইল লিখুন"
                         className="w-full rounded-2xl border border-[#d8def6] bg-[#fbfcff] py-3.5 pl-12 pr-4 text-[#1c2543] outline-none transition focus:border-[#4640c2] focus:ring-4 focus:ring-[#4640c2]/10"
                       />
                     </div>
@@ -133,6 +213,8 @@ export function Checkout() {
                       <textarea
                         required
                         rows={4}
+                        value={formData.address}
+                        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                         placeholder="রাস্তার নাম, এলাকা, থানা, জেলা সহ সম্পূর্ণ ঠিকানা লিখুন"
                         className="w-full resize-none rounded-2xl border border-[#d8def6] bg-[#fbfcff] py-3.5 pl-12 pr-4 text-[#1c2543] outline-none transition focus:border-[#4640c2] focus:ring-4 focus:ring-[#4640c2]/10"
                       />
@@ -146,6 +228,8 @@ export function Checkout() {
                       <input
                         type="text"
                         required
+                        value={formData.city}
+                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                         placeholder="শহর বা জেলা"
                         className="w-full rounded-2xl border border-[#d8def6] bg-[#fbfcff] py-3.5 pl-12 pr-4 text-[#1c2543] outline-none transition focus:border-[#4640c2] focus:ring-4 focus:ring-[#4640c2]/10"
                       />
@@ -159,6 +243,8 @@ export function Checkout() {
                       <input
                         type="text"
                         required
+                        value={formData.postalCode}
+                        onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
                         placeholder="পোস্ট কোড লিখুন"
                         className="w-full rounded-2xl border border-[#d8def6] bg-[#fbfcff] py-3.5 pl-12 pr-4 text-[#1c2543] outline-none transition focus:border-[#4640c2] focus:ring-4 focus:ring-[#4640c2]/10"
                       />
@@ -171,13 +257,10 @@ export function Checkout() {
                     </label>
 
                     <div className="relative">
-                      {/* Left icon */}
                       <MapPin className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#6b75a7]" />
-
-                      {/* Select */}
                       <select
                         value={deliveryLocation}
-                        onChange={(e) => setDeliveryLocation(e.target.value)}
+                        onChange={(e) => setDeliveryLocation(e.target.value as 'inside' | 'outside')}
                         required
                         className="w-full appearance-none rounded-2xl border border-[#d8def6] bg-[#fbfcff] py-3.5 pl-12 pr-12 text-[#1c2543] outline-none transition focus:border-[#4640c2] focus:ring-4 focus:ring-[#4640c2]/10"
                       >
@@ -185,7 +268,6 @@ export function Checkout() {
                         <option value="outside">চট্টগ্রাম বাইরে (Tk 150)</option>
                       </select>
 
-                      {/* Right arrow */}
                       <svg
                         className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#6b75a7]"
                         xmlns="http://www.w3.org/2000/svg"
@@ -205,6 +287,8 @@ export function Checkout() {
                       <FileText className="pointer-events-none absolute left-4 top-4 h-5 w-5 text-[#6b75a7]" />
                       <textarea
                         rows={3}
+                        value={formData.note}
+                        onChange={(e) => setFormData({ ...formData, note: e.target.value })}
                         placeholder="যদি কোনো বিশেষ নির্দেশনা বা মতামত থাকে তা লিখুন..."
                         className="w-full resize-none rounded-2xl border border-[#d8def6] bg-[#fbfcff] py-3.5 pl-12 pr-4 text-[#1c2543] outline-none transition focus:border-[#4640c2] focus:ring-4 focus:ring-[#4640c2]/10"
                       />
@@ -213,7 +297,7 @@ export function Checkout() {
                 </div>
               </div>
 
-              <div className="rounded-[30px] border border-[#dce3ff] bg-[linear-gradient(180deg,#eef1ff_0%,#f8f9ff_100%)] p-6 md:p-8 shadow-[0_18px_45px_rgba(37,56,134,0.08)]">
+              <div className="rounded-[30px] border border-[#dce3ff] bg-[linear-gradient(180deg,#eef1ff_0%,#f8f9ff_100%)] p-6 shadow-[0_18px_45px_rgba(37,56,134,0.08)] md:p-8">
                 <h2 className="text-3xl font-bold text-[#141d3a]">পেমেন্ট মেথড</h2>
                 <div className="mt-5 flex items-center gap-4 rounded-[24px] border border-[#d8defd] bg-white p-5">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#eef1ff]">
@@ -221,7 +305,7 @@ export function Checkout() {
                   </div>
                   <div>
                     <p className="text-xl font-bold text-[#18213f]">ক্যাশ অন ডেলিভারি</p>
-                    <p className="mt-1 text-sm text-[#5e688c]">পণ্য হাতে পেয়ে মূল্য পরিশোধ করুন</p>
+                    <p className="mt-1 text-sm text-[#5e688c]">পণ্য হাতে পেয়ে মূল্য পরিশোধ করুন</p>
                   </div>
                 </div>
               </div>
@@ -231,7 +315,7 @@ export function Checkout() {
                 whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={isProcessing}
-                className="w-full cursor-pointer rounded-2xl bg-[#4640c2] py-5 text-lg font-bold text-white transition-all hover:bg-[#3b35a5] disabled:cursor-not-allowed disabled:bg-[#9da3c9] shadow-[0_18px_35px_rgba(70,64,194,0.28)]"
+                className="w-full cursor-pointer rounded-2xl bg-[#4640c2] py-5 text-lg font-bold text-white shadow-[0_18px_35px_rgba(70,64,194,0.28)] transition-all hover:bg-[#3b35a5] disabled:cursor-not-allowed disabled:bg-[#9da3c9]"
               >
                 {isProcessing ? 'অর্ডার প্রসেস হচ্ছে...' : 'অর্ডার কনফার্ম করুন'}
               </motion.button>
@@ -282,7 +366,7 @@ export function Checkout() {
                     <span className="font-semibold text-[#202a48]">Tk {totalPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center justify-between text-[#5a6487]">
-                    <span>ডেলিভারি ({deliveryLocation === 'inside' ? 'চট্টগ্রাম ভিতরে' : 'চট্টগ্রাম বাইরে'})</span>
+                    <span>ডেলিভারি ({deliveryLocationLabel})</span>
                     <span className="font-semibold text-[#202a48]">Tk {deliveryFee}</span>
                   </div>
                 </div>
@@ -297,7 +381,7 @@ export function Checkout() {
                 <div className="mt-5 rounded-[22px] border border-[#dce2ff] bg-[#eef1ff] p-4">
                   <p className="text-sm font-semibold text-[#24305f]">নোট</p>
                   <p className="mt-1 text-xs leading-6 text-[#6570aa]">
-                    ডেলিভারি চার্জ আপনার নির্বাচিত লোকেশন অনুযায়ী যোগ হবে।
+                    অর্ডার সাবমিট করলে আপনার অর্ডার ডিটেইলস আমাদের ইমেইলে চলে যাবে।
                   </p>
                 </div>
               </div>

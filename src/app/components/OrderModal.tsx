@@ -4,6 +4,7 @@ import { useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import { Product } from '../context/CartContext';
 import { toast } from 'sonner';
+import { sendOrderEmail } from '../lib/email';
 
 interface OrderModalProps {
   isOpen: boolean;
@@ -25,19 +26,28 @@ export function OrderModal({ isOpen, onClose, product, quantity = 1 }: OrderModa
   const productTotal = product ? product.price * quantity : 0;
   const total = productTotal + deliveryCharge;
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast.success('Order placed successfully! We will contact you soon.');
-    setFormData({
-      name: '',
-      phone: '',
-      address: '',
-      location: 'inside',
-      note: '',
-    });
-    onClose();
-  };
-
+    if (!product) return;
+    try {
+      await sendOrderEmail({
+        user_name: formData.name,
+        user_phone: formData.phone,
+        user_address: formData.address,
+        order_items: `${product.name} (x${quantity}) — Tk ${productTotal.toFixed(2)}`,
+        subtotal: productTotal.toFixed(2),
+        delivery: deliveryCharge.toString(),
+        total: total.toFixed(2),
+        note: formData.note || '—',
+      });
+      toast.success('অর্ডার সফল হয়েছে!');
+      setFormData({ name: '', phone: '', address: '', location: 'inside', note: '' });
+      onClose();
+    } catch (error) {
+      console.error(error);
+      toast.error('অর্ডার দিতে সমস্যা হয়েছে!');
+    }
+  };  
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

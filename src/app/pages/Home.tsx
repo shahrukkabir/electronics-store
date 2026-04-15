@@ -64,7 +64,7 @@ export function Home() {
               </h1>
 
               <p className="text-lg md:text-xl mb-7 text-blue-100">
-                ওয়াকি-ট কি • কুলার ফ্যান • রাউটার  • ট্রিমার  • চার্জার ফ্যান
+                ওয়াকিটকি • কুলার ফ্যান • রাউটার  • ট্রিমার  • চার্জার ফ্যান
               </p>
 
               <div className="flex flex-wrap gap-4 mt-2">

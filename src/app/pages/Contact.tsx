@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Seo } from '../components/Seo';
+import { sendContactEmail } from '../lib/email';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -12,10 +13,21 @@ export function Contact() {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('মেসেজ পাঠানো হয়েছে!');
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    try {
+      await sendContactEmail({
+        user_name: formData.name,
+        user_email: formData.email,
+        user_phone: formData.phone,
+        message: formData.message,
+      });
+      toast.success('মেসেজ পাঠানো হয়েছে!');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch (error) {
+      console.error(error);
+      toast.error('মেসেজ পাঠানো যায়নি!');
+    }
   };
 
   const handleChange = (e: any) => {

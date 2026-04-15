@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, type ReactNode, useContext, useRef, useState } from 'react';
 
 export interface Product {
   id: number;
@@ -18,7 +18,8 @@ export interface CartItem extends Product {
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product) => void;
+  addToCart: (product: Product) => boolean;
+  hasItemInCart: (productId: number) => boolean;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
   clearCart: () => void;
@@ -30,23 +31,26 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const cartRef = useRef<CartItem[]>([]);
 
   const addToCart = (product: Product) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
-      if (existingItem) {
-        return prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prevCart, { ...product, quantity: 1 }];
-    });
+    if (cartRef.current.some((item) => item.id === product.id)) {
+      return false;
+    }
+
+    const nextCart = [...cartRef.current, { ...product, quantity: 1 }];
+    cartRef.current = nextCart;
+    setCart(nextCart);
+    return true;
   };
 
+  const hasItemInCart = (productId: number) =>
+    cartRef.current.some((item) => item.id === productId);
+
   const removeFromCart = (productId: number) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+    const nextCart = cartRef.current.filter((item) => item.id !== productId);
+    cartRef.current = nextCart;
+    setCart(nextCart);
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
@@ -54,14 +58,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeFromCart(productId);
       return;
     }
-    setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.id === productId ? { ...item, quantity } : item
-      )
+
+    const nextCart = cartRef.current.map((item) =>
+      item.id === productId ? { ...item, quantity } : item
     );
+
+    cartRef.current = nextCart;
+    setCart(nextCart);
   };
 
   const clearCart = () => {
+    cartRef.current = [];
     setCart([]);
   };
 
@@ -73,6 +80,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       value={{
         cart,
         addToCart,
+        hasItemInCart,
         removeFromCart,
         updateQuantity,
         clearCart,

@@ -1,19 +1,23 @@
-import { useParams, Link } from 'react-router';
+import { Link, useParams } from 'react-router';
 import { motion } from 'motion/react';
 import { ArrowLeft, ShoppingCart, Star, Truck, Shield, Package } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { products } from '../data/products';
-import { useCart } from '../context/CartContext';
 import { toast } from 'sonner';
 import { ProductCard } from '../components/ProductCard';
 import { OrderModal } from '../components/OrderModal';
-import { useState } from 'react';
 
 export function ProductDetail() {
   const { id } = useParams();
-  const { addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
 
   const product = products.find((p) => p.id === Number(id));
+
+  useEffect(() => {
+    setQuantity(1);
+    setIsOrderModalOpen(false);
+  }, [id]);
 
   if (!product) {
     return (
@@ -35,8 +39,8 @@ export function ProductDetail() {
     .slice(0, 4);
 
   const handleAddToCart = () => {
-    addToCart(product);
-    toast.success(`${product.name} added to cart!`);
+    setQuantity((prevQuantity) => prevQuantity + 1);
+    toast.success('Buy Now quantity increased for this product.');
   };
 
   const handleBuyNow = () => {
@@ -47,7 +51,6 @@ export function ProductDetail() {
     <>
       <div className="min-h-screen bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Back Button */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -65,10 +68,8 @@ export function ProductDetail() {
             </Link>
           </motion.div>
 
-          {/* Product Details */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-xl overflow-hidden mb-16">
             <div className="grid md:grid-cols-2 gap-12 p-8 md:p-12">
-              {/* Image */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -91,7 +92,6 @@ export function ProductDetail() {
                 </div>
               </motion.div>
 
-              {/* Info */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -108,7 +108,7 @@ export function ProductDetail() {
 
                 <div className="mb-8">
                   <span className="text-5xl font-bold text-[#ff6b35]">
-                    ট {product.price.toFixed(2)}
+                    Tk {product.price.toFixed(2)}
                   </span>
                 </div>
 
@@ -116,7 +116,6 @@ export function ProductDetail() {
                   {product.description}
                 </p>
 
-                {/* Features */}
                 <div className="bg-gray-50 rounded-2xl p-6 mb-8">
                   <div className="grid grid-cols-3 gap-4">
                     <div className="text-center">
@@ -134,7 +133,28 @@ export function ProductDetail() {
                   </div>
                 </div>
 
-                {/* Actions */}
+                <div className="flex items-center gap-4 mb-8">
+                  <span className="text-sm text-gray-600 font-medium">Quantity:</span>
+
+                  <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+                    <button
+                      onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                      className="px-4 py-2 bg-gray-100 hover:bg-gray-200 transition"
+                    >
+                      -
+                    </button>
+
+                    <span className="px-5 py-2 font-semibold text-lg">{quantity}</span>
+
+                    <button
+                      onClick={() => setQuantity((prev) => prev + 1)}
+                      className="px-4 py-2 bg-gray-100 hover:bg-gray-200 transition"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
                 <div className="flex gap-4 mt-auto">
                   <motion.button
                     whileHover={{ scale: 1.03 }}
@@ -145,6 +165,7 @@ export function ProductDetail() {
                     <ShoppingCart className="w-5 h-5" />
                     Add to Cart
                   </motion.button>
+
                   <motion.button
                     whileHover={{ scale: 1.03, boxShadow: '0 20px 40px rgba(255, 107, 53, 0.4)' }}
                     whileTap={{ scale: 0.98 }}
@@ -158,7 +179,6 @@ export function ProductDetail() {
             </div>
           </div>
 
-          {/* Related Products */}
           {relatedProducts.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -180,6 +200,7 @@ export function ProductDetail() {
         isOpen={isOrderModalOpen}
         onClose={() => setIsOrderModalOpen(false)}
         product={product}
+        quantity={quantity}
       />
     </>
   );

@@ -70,7 +70,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         </div>
 
         <div className="px-5 py-4 flex flex-col flex-1">
-          <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-[15px] leading-snug group-hover:text-[#ff6b35] transition">
+          <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 text-[15px] leading-snug group-hover:text-blue-600 transition">
             {product.name}
           </h3>
 

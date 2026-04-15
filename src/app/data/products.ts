@@ -11,6 +11,16 @@ export const products: Product[] = [
     category: 'Audio',
     description: 'High-quality wireless headphone with noise cancellation, deep bass, and long battery backup. Perfect for music, gaming, and daily use.',
     rating: 4.8,
+    specifications: [
+      { label: 'Connectivity', value: 'Bluetooth 5.3 + AUX support' },
+      { label: 'Battery', value: 'Up to 40 hours playback' },
+      { label: 'Driver Size', value: '40 mm dynamic driver' },
+      { label: 'Noise Control', value: 'Hybrid noise cancellation' },
+    ],
+    details: [
+      'This headphone is tuned for everyday listening with a balanced sound profile, stronger bass response, and stable wireless pairing for commuting or desk use.',
+      'Its padded ear cups and foldable design make it easy to wear for long sessions, while the long battery life keeps it dependable for music, calls, and casual gaming.',
+    ],
   },
   {
     id: 2,
@@ -22,6 +32,16 @@ export const products: Product[] = [
     category: 'Wearables',
     description: 'Track your fitness, heart rate, sleep, and daily activity. Stylish smartwatch with long battery life and waterproof design.',
     rating: 4.6,
+    specifications: [
+      { label: 'Display', value: '1.83-inch vivid touch screen' },
+      { label: 'Sensors', value: 'Heart rate, SpO2, sleep tracking' },
+      { label: 'Battery', value: 'Up to 7 days typical use' },
+      { label: 'Protection', value: 'IP68 water-resistant body' },
+    ],
+    details: [
+      'The watch is designed for users who want everyday wellness tracking without giving up a clean, lightweight style that works with both casual and office wear.',
+      'It keeps core fitness data easy to read, syncs common notifications quickly, and offers enough battery life to avoid daily charging stress.',
+    ],
   },
   {
     id: 3,
@@ -33,6 +53,16 @@ export const products: Product[] = [
     category: 'Computers',
     description: 'Powerful gaming laptop with fast processor, high RAM, and SSD storage. Ideal for gaming, programming, and heavy tasks.',
     rating: 4.9,
+    specifications: [
+      { label: 'Processor', value: 'High-performance Intel Core class CPU' },
+      { label: 'Memory', value: '16 GB fast multitasking RAM' },
+      { label: 'Storage', value: '512 GB NVMe SSD' },
+      { label: 'Graphics', value: 'Dedicated gaming-grade GPU' },
+    ],
+    details: [
+      'Built for performance-focused work and play, this laptop handles modern games, development tools, and creative apps with strong responsiveness and fast load times.',
+      'Its cooling-focused chassis and SSD setup help maintain smoother everyday operation, whether you are gaming, editing, or running multiple heavy apps together.',
+    ],
   },
   {
     id: 4,
@@ -44,6 +74,16 @@ export const products: Product[] = [
     category: 'Photography',
     description: 'Capture high-quality photos and videos with this professional DSLR camera. Perfect for photography lovers.',
     rating: 4.7,
+    specifications: [
+      { label: 'Sensor', value: '24.2 MP APS-C sensor' },
+      { label: 'Video', value: '4K recording support' },
+      { label: 'Lens System', value: 'Interchangeable lens mount' },
+      { label: 'Connectivity', value: 'Wi-Fi and Bluetooth transfer' },
+    ],
+    details: [
+      'This DSLR is made for users who want stronger manual control, natural image depth, and reliable autofocus for portraits, travel, and event shooting.',
+      'The camera balances image quality with practical usability, making it a solid option for learners stepping up as well as experienced hobbyists.',
+    ],
   },
   {
     id: 5,
@@ -55,6 +95,16 @@ export const products: Product[] = [
     category: 'Audio',
     description: 'Compact and powerful speaker with clear sound and strong bass. Easy to carry and perfect for outdoor use.',
     rating: 4.5,
+    specifications: [
+      { label: 'Output', value: '20 W stereo sound' },
+      { label: 'Battery', value: 'Up to 10 hours playback' },
+      { label: 'Connectivity', value: 'Bluetooth 5.0 wireless link' },
+      { label: 'Build', value: 'Portable splash-resistant body' },
+    ],
+    details: [
+      'The speaker focuses on portability without sounding thin, so you get fuller audio for casual listening, outdoor meetups, or desk use at home.',
+      'Its compact shape is easy to carry, and the battery backup keeps it practical for travel, picnics, or small room audio without extra setup.',
+    ],
   },
   {
     id: 6,
@@ -66,6 +116,16 @@ export const products: Product[] = [
     category: 'Mobile',
     description: 'Modern smartphone with high-resolution display, fast processor, and long battery backup. Ideal for daily use.',
     rating: 4.8,
+    specifications: [
+      { label: 'Display', value: '6.7-inch FHD+ display' },
+      { label: 'Chipset', value: 'Octa-core performance processor' },
+      { label: 'Memory', value: '8 GB RAM + 128 GB storage' },
+      { label: 'Battery', value: '5000 mAh with fast charging' },
+    ],
+    details: [
+      'This smartphone is aimed at everyday users who want a smoother display, solid app performance, and dependable battery life for calls, streaming, and social apps.',
+      'Its balanced hardware setup makes it practical for daily multitasking while still keeping the design slim enough to feel comfortable in hand.',
+    ],
   },
   {
     id: 7,
@@ -77,6 +137,16 @@ export const products: Product[] = [
     category: 'Gaming',
     description: 'Mechanical keyboard with RGB lighting and smooth typing experience. Perfect for gaming and office work.',
     rating: 4.7,
+    specifications: [
+      { label: 'Switch Type', value: 'Mechanical tactile switches' },
+      { label: 'Lighting', value: 'Full RGB zone effects' },
+      { label: 'Connection', value: 'Wired USB low-latency input' },
+      { label: 'Layout', value: 'Full-size gaming layout' },
+    ],
+    details: [
+      'The keyboard is built for fast response and satisfying key travel, making it a good fit for competitive play as well as long typing sessions.',
+      'Custom lighting and durable key construction give it a more premium desk presence while keeping the layout familiar and easy to use.',
+    ],
   },
   {
     id: 8,
@@ -88,6 +158,16 @@ export const products: Product[] = [
     category: 'Tablets',
     description: 'High-performance tablet with stylus support. Ideal for drawing, design, and multitasking.',
     rating: 4.6,
+    specifications: [
+      { label: 'Display', value: '11-inch 2K panel' },
+      { label: 'Input', value: 'Active stylus support' },
+      { label: 'Performance', value: 'Productivity-class chipset' },
+      { label: 'Battery', value: 'Up to 12 hours mixed use' },
+    ],
+    details: [
+      'This tablet is shaped around flexible work and creativity, offering a larger screen and stylus support for note taking, sketching, and portable editing.',
+      'It is a strong middle ground between a casual media tablet and a productivity device, giving you smoother multitasking without extra bulk.',
+    ],
   },
   {
     id: 9,
@@ -99,6 +179,16 @@ export const products: Product[] = [
     category: 'Photography',
     description: 'Advanced drone with 4K camera, long flight time, and smart control features. Capture stunning aerial shots.',
     rating: 4.5,
+    specifications: [
+      { label: 'Camera', value: '4K stabilized aerial camera' },
+      { label: 'Flight Time', value: 'Up to 32 minutes per charge' },
+      { label: 'Control', value: 'GPS smart return and hover' },
+      { label: 'Range', value: 'Long-range remote connection' },
+    ],
+    details: [
+      'The drone is built for creators who want smoother aerial footage with a safer control experience, including return-home support and more stable hovering.',
+      'It works well for travel footage, scenic capture, and hobby flying where you want better video output without jumping to a much heavier pro setup.',
+    ],
   },
   {
     id: 10,
@@ -110,5 +200,15 @@ export const products: Product[] = [
     category: 'Gaming',
     description: 'High precision gaming mouse with adjustable DPI and RGB lighting. Comfortable for long gaming sessions.',
     rating: 4.8,
+    specifications: [
+      { label: 'Sensor', value: 'High-precision optical sensor' },
+      { label: 'DPI', value: 'Adjustable up to 7200 DPI' },
+      { label: 'Lighting', value: 'Custom RGB light zones' },
+      { label: 'Connection', value: 'Wired USB stability' },
+    ],
+    details: [
+      'Designed for responsive tracking and comfortable grip, this gaming mouse suits both competitive gameplay and long general-computing sessions.',
+      'The adjustable DPI levels help it adapt to different play styles, while the RGB lighting adds a cleaner gaming desk look without overcomplicating setup.',
+    ],
   },
 ];

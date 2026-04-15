@@ -10,6 +10,11 @@ export interface Product {
   originalPrice: number;
   description: string;
   rating: number;
+  specifications: {
+    label: string;
+    value: string;
+  }[];
+  details: string[];
 }
 
 export interface CartItem extends Product {

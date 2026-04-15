@@ -47,7 +47,7 @@ export function Products() {
                   placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#ff6b35] focus:border-transparent outline-none transition-all"
+                  className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4640c2] focus:border-transparent outline-none transition-all"
                 />
               </div>
             </div>
@@ -58,7 +58,7 @@ export function Products() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-6 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#ff6b35] focus:border-transparent outline-none transition-all"
+                className="px-6 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4640c2] focus:border-transparent outline-none transition-all"
               >
                 {categories.map((category) => (
                   <option key={category} value={category}>
@@ -77,9 +77,9 @@ export function Products() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-5 py-2 rounded-xl font-medium transition-all ${
+                className={`px-5 py-2 cursor-pointer rounded-xl font-medium transition-all ${
                   selectedCategory === category
-                    ? 'bg-[#ff6b35] text-white shadow-lg shadow-orange-500/30'
+                    ? 'bg-[#4640c2] text-white hover:bg-[#3b35a5] shadow-[0_10px_30px_rgba(70,64,194,0.28)]'
                     : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
                 }`}
               >

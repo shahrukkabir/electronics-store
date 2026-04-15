@@ -50,9 +50,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   className="w-50 h-50 object-cover -ml-4"
                 />
 
-                {/* <span className="text-2xl font-bold text-gray-900 tracking-wide">
-      Electronics Store
-    </span> */}
               </motion.div>
             </Link>
 
@@ -88,7 +85,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                       animate={{ scale: 1 }}
                       className="absolute -top-1 -right-1"
                     >
-                      <Badge className="bg-[#ff6b35] text-white px-1.5 min-w-[20px] h-5 flex items-center justify-center">
+                      <Badge className="bg-[#4640c2] text-white px-1.5 min-w-[20px] h-5 flex items-center justify-center shadow-[0_8px_18px_rgba(70,64,194,0.35)]">
                         {totalItems}
                       </Badge>
                     </motion.div>

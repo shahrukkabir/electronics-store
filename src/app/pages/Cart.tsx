@@ -1,11 +1,14 @@
-import { motion, AnimatePresence } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { Link, useNavigate } from 'react-router';
 
 export function Cart() {
-  const { cart, removeFromCart, updateQuantity, totalPrice } = useCart();
+  const { cart, removeFromCart, updateQuantity, totalItems, totalPrice } = useCart();
   const navigate = useNavigate();
+  const deliveryFee = 60;
+  const outsideDeliveryFee = 150;
+  const grandTotal = totalPrice + deliveryFee;
 
   if (cart.length === 0) {
     return (
@@ -20,9 +23,9 @@ export function Cart() {
           <p className="text-xl text-gray-600 mb-10">Start shopping to add items to your cart</p>
           <Link to="/products">
             <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255, 107, 53, 0.3)' }}
+              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(70, 64, 194, 0.25)' }}
               whileTap={{ scale: 0.95 }}
-              className="bg-[#ff6b35] text-white px-10 py-4 rounded-xl font-semibold hover:bg-[#ff5722] transition-all shadow-lg shadow-orange-500/30"
+              className="bg-[#4640c2] text-white px-10 py-4 cursor-pointer rounded-xl font-semibold transition-all hover:bg-[#3b35a5] shadow-[0_16px_35px_rgba(70,64,194,0.28)]"
             >
               Browse Products
             </motion.button>
@@ -33,21 +36,22 @@ export function Cart() {
   }
 
   return (
-    <div className="min-h-screen bg-white py-12">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(70,64,194,0.08),_transparent_30%),_white] py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-12"
         >
-          <h1 className="text-5xl font-bold mb-3 text-gray-900">Shopping Cart</h1>
-          <p className="text-xl text-gray-600">{cart.length} {cart.length === 1 ? 'item' : 'items'} in your cart</p>
+          <div className="inline-flex items-center rounded-full border border-[#d9defd] bg-[#eef1ff] px-4 py-1.5 text-sm font-semibold text-[#4640c2]">
+            {totalItems} item{totalItems === 1 ? '' : 's'} ready for checkout
+          </div>
+          <h1 className="text-5xl font-bold mt-4 mb-3 text-gray-900">Shopping Cart</h1>
+          <p className="text-xl text-gray-600">Review your products and adjust quantities before checkout.</p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Cart Items */}
-          <div className="lg:col-span-2 space-y-4">
+        <div className="grid lg:grid-cols-3 gap-8 items-start">
+          <div className="lg:col-span-2 space-y-5">
             <AnimatePresence mode="popLayout">
               {cart.map((item, index) => (
                 <motion.div
@@ -57,14 +61,13 @@ export function Cart() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="bg-gray-50 rounded-2xl border border-gray-100 p-6"
+                  className="rounded-[28px] border border-[#e5e9ff] bg-white p-5 sm:p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]"
                 >
-                  <div className="flex gap-6">
-                    {/* Image */}
+                  <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
                     <Link to={`/product/${item.id}`}>
                       <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="w-28 h-28 bg-white rounded-xl overflow-hidden flex-shrink-0 shadow-md"
+                        whileHover={{ scale: 1.04 }}
+                        className="w-28 h-28 bg-[#f6f8ff] rounded-2xl overflow-hidden flex-shrink-0 shadow-[0_12px_25px_rgba(70,64,194,0.12)]"
                       >
                         <img
                           src={item.image}
@@ -74,47 +77,58 @@ export function Cart() {
                       </motion.div>
                     </Link>
 
-                    {/* Info */}
                     <div className="flex-1 min-w-0">
-                      <Link to={`/product/${item.id}`}>
-                        <h3 className="font-bold text-lg mb-1 hover:text-[#ff6b35] transition-colors">
-                          {item.name}
-                        </h3>
-                      </Link>
-                      <p className="text-gray-500 text-sm mb-3">{item.category}</p>
-                      <p className="text-2xl font-bold text-[#ff6b35]">ট {item.price.toFixed(2)}</p>
-                    </div>
+                      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                        <div>
+                          <Link to={`/product/${item.id}`}>
+                            <h3 className="font-bold text-xl mb-2 text-gray-900 hover:text-[#4640c2] transition-colors">
+                              {item.name}
+                            </h3>
+                          </Link>
+                          <div className="inline-flex items-center rounded-full bg-[#eef1ff] px-3 py-1 text-xs font-semibold text-[#5a63a5]">
+                            {item.category}
+                          </div>
+                        </div>
 
-                    {/* Actions */}
-                    <div className="flex flex-col items-end justify-between">
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-red-500 hover:text-red-700 p-2 hover:bg-red-50 rounded-lg transition-all"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.08 }}
+                          whileTap={{ scale: 0.92 }}
+                          onClick={() => removeFromCart(item.id)}
+                          className="self-start cursor-pointer text-black hover:text-blue-600 p-2 hover:bg-red-50 rounded-xl transition-all"
+                        >
+                          <Trash2 className="w-5 h-5" />
+                        </motion.button>
+                      </div>
 
-                      {/* Quantity Controls */}
-                      <div className="flex items-center gap-3 bg-white rounded-xl p-1 border border-gray-200">
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
-                        >
-                          <Minus className="w-4 h-4" />
-                        </motion.button>
-                        <span className="w-8 text-center font-bold">{item.quantity}</span>
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
-                        >
-                          <Plus className="w-4 h-4" />
-                        </motion.button>
+                      <div className="mt-5 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                        <div>
+                          <p className="text-sm text-gray-500 mb-1">Unit price</p>
+                          <p className="text-2xl font-bold text-[#4640c2]">Tk {item.price.toFixed(2)}</p>
+                        </div>
+
+                        <div className="flex items-center gap-3 rounded-2xl border border-[#dbe1ff] bg-[#f8f9ff] p-1.5">
+                          <motion.button
+                            whileHover={{ scale: 1.08 }}
+                            whileTap={{ scale: 0.92 }}
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            className="w-10 h-10 cursor-pointer flex items-center justify-center rounded-xl text-[#2f3654] hover:bg-[#e7ebff] transition-colors"
+                          >
+                            <Minus className="w-4 h-4" />
+                          </motion.button>
+
+                          <span className="min-w-10 text-center font-bold text-lg text-[#1f2747]">
+                            {item.quantity}
+                          </span>
+
+                          <motion.button
+                            whileHover={{ scale: 1.08 }}
+                            whileTap={{ scale: 0.92 }}
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            className="w-10 cursor-pointer h-10 flex items-center justify-center rounded-xl text-[#2f3654] hover:bg-[#e7ebff] transition-colors"
+                          >
+                            <Plus className="w-4 h-4" />
+                          </motion.button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -123,63 +137,82 @@ export function Cart() {
             </AnimatePresence>
           </div>
 
-          {/* Summary */}
           <div className="lg:col-span-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-gray-50 rounded-2xl border border-gray-100 p-8 sticky top-24"
+              className="sticky top-24 overflow-hidden rounded-[30px] border border-[#dde3ff] bg-[linear-gradient(180deg,#f7f8ff_0%,#ffffff_100%)] shadow-[0_22px_60px_rgba(37,56,134,0.12)]"
             >
-              <h2 className="text-3xl font-bold mb-8 text-gray-900">Order Summary</h2>
-
-              <div className="space-y-5 mb-8">
-                <div className="flex justify-between text-gray-600 text-lg">
-                  <span>Subtotal</span>
-                  <span className="font-semibold">ট {totalPrice.toFixed(2)}</span>
+              <div className="border-b border-[#e5e9ff] px-8 py-7">
+                <div className="inline-flex items-center rounded-full bg-[#e9edff] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#4640c2]">
+                  Checkout Overview
                 </div>
-                <div className="flex justify-between text-gray-600 text-lg">
-                  <span>Delivery (Chittagong ভিতরে)</span>
-                  <span className="text-green-600 font-semibold">ট 60</span>
-                </div>
-                <div className="text-xs text-gray-500">
-                  * Chittagong বাইরে: ট 150
-                </div>
-                <div className="border-t border-gray-200 pt-5">
-                  <div className="flex justify-between items-center">
-                    <span className="text-2xl font-bold text-gray-900">Total</span>
-                    <span className="text-3xl font-bold text-[#ff6b35]">
-                      ট {(totalPrice + 60).toFixed(2)}
-                    </span>
-                  </div>
-                </div>
+                <h2 className="mt-4 text-3xl font-bold text-gray-900">Order Summary</h2>
+                <p className="mt-2 text-sm text-gray-500">
+                  Clear totals, delivery info, and quick actions in one place.
+                </p>
               </div>
 
-              <motion.button
-                whileHover={{ scale: 1.03, boxShadow: '0 20px 40px rgba(255, 107, 53, 0.4)' }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => navigate('/checkout')}
-                className="w-full bg-[#ff6b35] text-white py-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-[#ff5722] transition-all mb-4 shadow-lg shadow-orange-500/30"
-              >
-                Proceed to Checkout
-                <ArrowRight className="w-5 h-5" />
-              </motion.button>
+              <div className="px-8 py-7">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between rounded-2xl border border-[#e5e9ff] bg-white px-4 py-4">
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">Subtotal</p>
+                      <p className="text-xs text-gray-400">{cart.length} product{cart.length === 1 ? '' : 's'}</p>
+                    </div>
+                    <span className="text-lg font-semibold text-[#1f2747]">Tk {totalPrice.toFixed(2)}</span>
+                  </div>
 
-              <Link to="/products">
+                  <div className="flex items-center justify-between rounded-2xl border border-[#e5e9ff] bg-white px-4 py-4">
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">Delivery</p>
+                      <p className="text-xs text-gray-400">Inside Chattogram</p>
+                    </div>
+                    <span className="text-lg font-semibold text-[#4640c2]">Tk {deliveryFee}</span>
+                  </div>
+
+                  <div className="rounded-2xl border border-dashed border-[#cfd6ff] bg-[#f7f8ff] px-4 py-3 text-sm text-[#6670a9]">
+                    Outside Chattogram delivery: Tk {outsideDeliveryFee}
+                  </div>
+                </div>
+
+                <div className="mt-6 rounded-[24px] bg-[#2943b6] p-5 text-white shadow-[0_18px_40px_rgba(18,26,63,0.26)]">
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.18em] text-blue-200/90">Grand Total</p>
+                      <p className="mt-2 text-3xl font-bold">Tk {grandTotal.toFixed(2)}</p>
+                    </div>
+                    <div className="rounded-2xl bg-white/10 p-3">
+                      <ShoppingBag className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                </div>
+
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.02, boxShadow: '0 18px 35px rgba(70, 64, 194, 0.28)' }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-white border-2 border-gray-900 text-gray-900 py-4 rounded-xl font-semibold hover:bg-gray-900 hover:text-white transition-all"
+                  onClick={() => navigate('/checkout')}
+                  className="mt-6 cursor-pointer w-full bg-[#4640c2] text-white py-4 rounded-2xl font-semibold flex items-center justify-center gap-2 hover:bg-[#3b35a5] transition-all shadow-[0_16px_35px_rgba(70,64,194,0.3)]"
                 >
-                  Continue Shopping
+                  Proceed to Checkout
+                  <ArrowRight className="w-5 h-5" />
                 </motion.button>
-              </Link>
 
-              {/* Promo */}
-              <div className="mt-6 p-5 bg-green-50 border border-green-200 rounded-xl">
-                <p className="text-sm text-green-800 font-medium">
-                  ✓ Cash on Delivery Available
-                </p>
+                <Link to="/products">
+                  <motion.button
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="mt-4 cursor-pointer w-full border border-[#cfd6ff] bg-white text-[#1f2747] py-4 rounded-2xl font-semibold hover:bg-[#f3f5ff] transition-all"
+                  >
+                    Continue Shopping
+                  </motion.button>
+                </Link>
+
+                <div className="mt-6 rounded-2xl border border-[#dce2ff] bg-[#eef1ff] p-4">
+                  <p className="text-sm font-semibold text-[#24305f]">Cash on Delivery Available</p>
+                  <p className="mt-1 text-xs text-[#6570aa]">Pay after you receive and check your order.</p>
+                </div>
               </div>
             </motion.div>
           </div>

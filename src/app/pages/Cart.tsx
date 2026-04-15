@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { Link, useNavigate } from 'react-router';
+import { Seo } from '../components/Seo';
 
 export function Cart() {
   const { cart, removeFromCart, updateQuantity, totalItems, totalPrice } = useCart();
@@ -13,6 +14,11 @@ export function Cart() {
   if (cart.length === 0) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
+        <Seo
+          title="Shopping Cart"
+          description="Review the items in your shopping cart, update quantities, and continue to checkout."
+          robots="noindex, nofollow"
+        />
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -37,6 +43,11 @@ export function Cart() {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(70,64,194,0.08),_transparent_30%),_white] py-12">
+      <Seo
+        title="Shopping Cart"
+        description="Review the items in your shopping cart, update quantities, and continue to checkout."
+        robots="noindex, nofollow"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}

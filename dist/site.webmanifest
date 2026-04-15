@@ -1,0 +1,15 @@
+{
+  "name": "Electronics Store",
+  "short_name": "Electronics",
+  "description": "Affordable electronics and gadgets with fast delivery across Bangladesh.",
+  "theme_color": "#4640c2",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

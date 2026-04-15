@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { Seo } from '../components/Seo';
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -23,6 +24,11 @@ export function Contact() {
 
   return (
     <div className="bg-gray-50">
+      <Seo
+        title="Contact Us"
+        description="Contact Electronics Store by phone, email, WhatsApp, or message form for product questions, order support, and delivery information."
+        keywords="contact electronics store, WhatsApp electronics store, Bangladesh gadget support, Chittagong electronics contact"
+      />
 
       {/* Header */}
       <section className="bg-[#4640c2] text-white py-16">

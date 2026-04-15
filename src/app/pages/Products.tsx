@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { Search, SlidersHorizontal } from 'lucide-react';
 import { ProductCard } from '../components/ProductCard';
+import { Seo } from '../components/Seo';
 import { products } from '../data/products';
 
 export function Products() {
@@ -19,6 +20,11 @@ export function Products() {
 
   return (
     <div className="min-h-screen bg-white py-12">
+      <Seo
+        title="All Products"
+        description="Browse all available electronics and gadgets including headphones, smartwatches, laptops, smartphones, speakers, cameras, and more."
+        keywords="all electronics products, headphones, smartwatch, gaming laptop, smartphone, speakers, Bangladesh gadgets"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div

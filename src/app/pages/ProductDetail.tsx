@@ -7,6 +7,7 @@ import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { OrderModal } from '../components/OrderModal';
+import { Seo } from '../components/Seo';
 
 const serviceCards = [
   {
@@ -42,6 +43,11 @@ export function ProductDetail() {
   if (!product) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
+        <Seo
+          title="Product Not Found"
+          description="The requested product could not be found."
+          robots="noindex, nofollow"
+        />
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4 text-gray-900">Product not found</h2>
           <Link to="/products">
@@ -57,6 +63,26 @@ export function ProductDetail() {
   const relatedProducts = products
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
+  const productStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    image: [product.image],
+    description: product.description,
+    category: product.category,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: product.rating,
+      reviewCount: 234,
+    },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'BDT',
+      price: product.price.toFixed(2),
+      availability: 'https://schema.org/InStock',
+      itemCondition: 'https://schema.org/NewCondition',
+    },
+  };
 
   const handleAddToCart = () => {
     if (hasItemInCart(product.id)) {
@@ -70,6 +96,14 @@ export function ProductDetail() {
 
   return (
     <>
+      <Seo
+        title={product.name}
+        description={product.description}
+        image={product.image}
+        type="product"
+        keywords={`${product.name}, ${product.category}, electronics store, Bangladesh gadgets`}
+        structuredData={productStructuredData}
+      />
       <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(70,64,194,0.08),_transparent_28%),_white]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <motion.div

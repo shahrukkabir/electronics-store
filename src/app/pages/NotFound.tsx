@@ -1,10 +1,16 @@
 import { motion } from 'motion/react';
 import { AlertCircle, ArrowLeft, Home, Search } from 'lucide-react';
 import { Link } from 'react-router';
+import { Seo } from '../components/Seo';
 
 export function NotFound() {
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(70,64,194,0.08),_transparent_28%),_white] py-16">
+      <Seo
+        title="404 Page Not Found"
+        description="The page you requested could not be found."
+        robots="noindex, nofollow"
+      />
       <div className="mx-auto flex max-w-4xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

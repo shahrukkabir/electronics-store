@@ -2,11 +2,24 @@ import { motion } from 'motion/react';
 import { ArrowRight, Truck, Shield, DollarSign, Award } from 'lucide-react';
 import { Link } from 'react-router';
 import { ProductCard } from '../components/ProductCard';
+import { Seo } from '../components/Seo';
 import { products } from '../data/products';
 import CountUp from "react-countup";
 
 export function Home() {
   const featuredProducts = products.slice(0, 4);
+  const homeStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Electronics Store',
+    telephone: '+8801328105216',
+    email: 'bdelectronicsstore@gmail.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Chittagong',
+      addressCountry: 'BD',
+    },
+  };
 
   const whyChooseUs = [
     { icon: Truck, title: 'Fast Delivery', description: 'Quick delivery to your doorstep' },
@@ -17,6 +30,12 @@ export function Home() {
 
   return (
     <div className="bg-white">
+      <Seo
+        title="Home"
+        description="Shop affordable electronics, gadgets, and daily-use tech products with fast delivery and cash on delivery support across Bangladesh."
+        keywords="electronics store Bangladesh, gadgets shop, headphones, smartwatch, laptop, smartphone, Chittagong electronics"
+        structuredData={homeStructuredData}
+      />
 
       {/* HERO SECTION */}
       <section

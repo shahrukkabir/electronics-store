@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Store, Truck, Shield, Heart, Users, Award } from 'lucide-react';
+import { Seo } from '../components/Seo';
 
 export function About() {
   const features = [
@@ -43,6 +44,11 @@ export function About() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Seo
+        title="About Us"
+        description="Learn about Electronics Store, our mission, product quality promise, fast delivery, and commitment to customer satisfaction across Bangladesh."
+        keywords="about electronics store, Bangladesh electronics shop, trusted gadgets store, Chittagong electronics"
+      />
       {/* Hero Section */}
       <section className="bg-gradient-to-r bg-[#4640c2] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

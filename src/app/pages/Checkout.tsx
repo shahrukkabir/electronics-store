@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowRight, Building2, Check, FileText, Hash, MapPin, Phone, ShoppingBag, User } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router';
+import { Seo } from '../components/Seo';
 
 export function Checkout() {
   const { cart, totalPrice, clearCart } = useCart();
@@ -37,6 +38,11 @@ export function Checkout() {
   if (orderComplete) {
     return (
       <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(70,64,194,0.10),_transparent_30%),_white] flex items-center justify-center px-4">
+        <Seo
+          title="Order Confirmed"
+          description="Your order has been placed successfully."
+          robots="noindex, nofollow"
+        />
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -60,6 +66,11 @@ export function Checkout() {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top_right,_rgba(70,64,194,0.08),_transparent_30%),_white] py-12">
+      <Seo
+        title="Checkout"
+        description="Complete your delivery information and place your order with cash on delivery."
+        robots="noindex, nofollow"
+      />
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}

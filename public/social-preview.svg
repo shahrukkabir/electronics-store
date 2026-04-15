@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f1e4b"/>
+      <stop offset="55%" stop-color="#243caa"/>
+      <stop offset="100%" stop-color="#4640c2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="950" cy="130" r="110" fill="#ffffff" fill-opacity="0.08"/>
+  <circle cx="1040" cy="520" r="170" fill="#ffffff" fill-opacity="0.06"/>
+  <rect x="90" y="110" width="120" height="120" rx="28" fill="#ffffff" fill-opacity="0.14"/>
+  <path d="M125 136h52v14h-36v17h29v14h-29v17h37v14h-53z" fill="#fff"/>
+  <text x="90" y="320" fill="#ffffff" font-size="72" font-family="Segoe UI, Arial, sans-serif" font-weight="700">
+    Electronics Store
+  </text>
+  <text x="90" y="390" fill="#dbe5ff" font-size="30" font-family="Segoe UI, Arial, sans-serif">
+    Affordable electronics, gadgets, and fast delivery across Bangladesh
+  </text>
+  <rect x="90" y="448" width="280" height="64" rx="20" fill="#ffffff"/>
+  <text x="230" y="490" text-anchor="middle" fill="#243caa" font-size="28" font-family="Segoe UI, Arial, sans-serif" font-weight="700">
+    Shop Now
+  </text>
+</svg>

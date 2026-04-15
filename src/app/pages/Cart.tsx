@@ -63,72 +63,75 @@ export function Cart() {
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                   className="rounded-[28px] border border-[#e5e9ff] bg-white p-5 sm:p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]"
                 >
-                  <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
-                    <Link to={`/product/${item.id}`}>
-                      <motion.div
-                        whileHover={{ scale: 1.04 }}
-                        className="w-28 h-28 bg-[#f6f8ff] rounded-2xl overflow-hidden flex-shrink-0 shadow-[0_12px_25px_rgba(70,64,194,0.12)]"
-                      >
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </motion.div>
-                    </Link>
+                  <div className="flex flex-col gap-5">
+                    <div className="flex items-start gap-4 sm:gap-6">
+                      <Link to={`/product/${item.id}`} className="shrink-0">
+                        <motion.div
+                          whileHover={{ scale: 1.04 }}
+                          className="h-24 w-24 sm:h-28 sm:w-28 bg-[#f6f8ff] rounded-2xl overflow-hidden shadow-[0_12px_25px_rgba(70,64,194,0.12)]"
+                        >
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </motion.div>
+                      </Link>
 
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                        <div>
-                          <Link to={`/product/${item.id}`}>
-                            <h3 className="font-bold text-xl mb-2 text-gray-900 hover:text-[#4640c2] transition-colors">
-                              {item.name}
-                            </h3>
-                          </Link>
-                          <div className="inline-flex items-center rounded-full bg-[#eef1ff] px-3 py-1 text-xs font-semibold text-[#5a63a5]">
-                            {item.category}
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0">
+                            <Link to={`/product/${item.id}`}>
+                              <h3 className="font-bold text-xl text-gray-900 hover:text-[#4640c2] transition-colors break-words">
+                                {item.name}
+                              </h3>
+                            </Link>
+                            <div className="mt-3 inline-flex items-center rounded-full bg-[#eef1ff] px-3 py-1 text-xs font-semibold text-[#5a63a5]">
+                              {item.category}
+                            </div>
                           </div>
+
+                          <motion.button
+                            whileHover={{ scale: 1.08 }}
+                            whileTap={{ scale: 0.92 }}
+                            onClick={() => removeFromCart(item.id)}
+                            className="shrink-0 cursor-pointer p-2 text-black hover:text-blue-600 hover:bg-red-50 rounded-xl transition-all"
+                            aria-label={`Remove ${item.name} from cart`}
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </motion.button>
                         </div>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                      <div>
+                        <p className="text-sm text-gray-500 mb-1">Unit price</p>
+                        <p className="text-2xl font-bold text-[#4640c2]">Tk {item.price.toFixed(2)}</p>
+                      </div>
+
+                      <div className="flex items-center justify-between gap-3 rounded-2xl border border-[#dbe1ff] bg-[#f8f9ff] p-1.5 w-full sm:w-auto sm:min-w-[182px]">
+                        <motion.button
+                          whileHover={{ scale: 1.08 }}
+                          whileTap={{ scale: 0.92 }}
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          className="h-10 w-10 cursor-pointer flex items-center justify-center rounded-xl text-[#2f3654] hover:bg-[#e7ebff] transition-colors"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </motion.button>
+
+                        <span className="min-w-10 text-center font-bold text-lg text-[#1f2747]">
+                          {item.quantity}
+                        </span>
 
                         <motion.button
                           whileHover={{ scale: 1.08 }}
                           whileTap={{ scale: 0.92 }}
-                          onClick={() => removeFromCart(item.id)}
-                          className="self-start cursor-pointer text-black hover:text-blue-600 p-2 hover:bg-red-50 rounded-xl transition-all"
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="h-10 w-10 cursor-pointer flex items-center justify-center rounded-xl text-[#2f3654] hover:bg-[#e7ebff] transition-colors"
                         >
-                          <Trash2 className="w-5 h-5" />
+                          <Plus className="w-4 h-4" />
                         </motion.button>
-                      </div>
-
-                      <div className="mt-5 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-                        <div>
-                          <p className="text-sm text-gray-500 mb-1">Unit price</p>
-                          <p className="text-2xl font-bold text-[#4640c2]">Tk {item.price.toFixed(2)}</p>
-                        </div>
-
-                        <div className="flex items-center gap-3 rounded-2xl border border-[#dbe1ff] bg-[#f8f9ff] p-1.5">
-                          <motion.button
-                            whileHover={{ scale: 1.08 }}
-                            whileTap={{ scale: 0.92 }}
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-10 h-10 cursor-pointer flex items-center justify-center rounded-xl text-[#2f3654] hover:bg-[#e7ebff] transition-colors"
-                          >
-                            <Minus className="w-4 h-4" />
-                          </motion.button>
-
-                          <span className="min-w-10 text-center font-bold text-lg text-[#1f2747]">
-                            {item.quantity}
-                          </span>
-
-                          <motion.button
-                            whileHover={{ scale: 1.08 }}
-                            whileTap={{ scale: 0.92 }}
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="w-10 cursor-pointer h-10 flex items-center justify-center rounded-xl text-[#2f3654] hover:bg-[#e7ebff] transition-colors"
-                          >
-                            <Plus className="w-4 h-4" />
-                          </motion.button>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -159,7 +162,7 @@ export function Cart() {
                   <div className="flex items-center justify-between rounded-2xl border border-[#e5e9ff] bg-white px-4 py-4">
                     <div>
                       <p className="text-sm font-medium text-gray-500">Subtotal</p>
-                      <p className="text-xs text-gray-400">{cart.length} product{cart.length === 1 ? '' : 's'}</p>
+                      <p className="text-xs text-gray-400">{totalItems} product{totalItems === 1 ? '' : 's'}</p>
                     </div>
                     <span className="text-lg font-semibold text-[#1f2747]">Tk {totalPrice.toFixed(2)}</span>
                   </div>

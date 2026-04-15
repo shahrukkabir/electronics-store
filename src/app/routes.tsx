@@ -7,6 +7,7 @@ import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
+import { NotFound } from './pages/NotFound';
 
 export const router = createBrowserRouter([
   {
@@ -36,5 +37,9 @@ export const router = createBrowserRouter([
   {
     path: '/contact',
     Component: () => <Layout><Contact /></Layout>,
+  },
+  {
+    path: '*',
+    Component: () => <Layout><NotFound /></Layout>,
   },
 ]);

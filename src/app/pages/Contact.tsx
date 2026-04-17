@@ -22,6 +22,7 @@ export function Contact() {
         user_phone: formData.phone,
         message: formData.message,
       });
+
       toast.success('মেসেজ পাঠানো হয়েছে!');
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
@@ -39,26 +40,29 @@ export function Contact() {
       <Seo
         title="Contact Us"
         description="Contact Electronics Store by phone, email, WhatsApp, or message form for product questions, order support, and delivery information."
-        keywords="contact electronics store, WhatsApp electronics store, Bangladesh gadget support, Chittagong electronics contact"
       />
 
       {/* Header */}
-      <section className="bg-[#4640c2] text-white py-16">
+      <section className="bg-[#4640c2] text-white py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-3xl font-bold mb-2">যোগাযোগ করুন</h1>
-          <p className="text-blue-100 text-sm">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2">
+            যোগাযোগ করুন
+          </h1>
+          <p className="text-blue-100 text-sm md:text-base">
             আমরা সবসময় আপনার সাহায্যের জন্য প্রস্তুত
           </p>
         </div>
       </section>
 
-      {/* Main Section */}
-      <section className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid lg:grid-cols-2 gap-8">
+      {/* Main */}
+      <section className="max-w-6xl mx-auto px-4 py-8 md:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
 
           {/* LEFT: FORM */}
-          <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <h3 className="text-xl font-semibold mb-4">মেসেজ পাঠান</h3>
+          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm border">
+            <h3 className="text-lg md:text-xl font-semibold mb-4">
+              মেসেজ পাঠান
+            </h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -71,7 +75,8 @@ export function Contact() {
                 required
               />
 
-              <div className="grid grid-cols-2 gap-3">
+              {/* Email + Phone */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input
                   name="email"
                   value={formData.email}
@@ -100,7 +105,7 @@ export function Contact() {
                 required
               />
 
-              <button className="cursor-pointer w-full bg-[#4640c2] hover:bg-[#3b35a5] text-white py-2.5 rounded-md font-medium flex items-center justify-center gap-2">
+              <button className="w-full bg-[#4640c2] hover:bg-[#3b35a5] text-white py-2.5 rounded-md font-medium flex items-center justify-center gap-2">
                 <Send size={18} />
                 মেসেজ পাঠান
               </button>
@@ -110,33 +115,39 @@ export function Contact() {
           {/* RIGHT: CONTACT INFO */}
           <div className="space-y-4">
 
-            <div className="bg-white p-5 rounded-lg shadow-sm border flex items-center gap-4">
-              <div className="bg-blue-100 p-3 rounded-full">
-                <Phone className="text-blue-600" />
+            <div className="bg-white p-4 sm:p-5 rounded-lg shadow-sm border flex items-center gap-3 sm:gap-4">
+              <div className="bg-blue-100 p-2 sm:p-3 rounded-full">
+                <Phone className="text-blue-600" size={18} />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Phone</p>
-                <p className="font-semibold">+880 1328-105216</p>
+                <p className="text-xs sm:text-sm text-gray-500">Phone</p>
+                <p className="font-semibold text-sm sm:text-base">
+                  +880 1328-105216
+                </p>
               </div>
             </div>
 
-            <div className="bg-white p-5 rounded-lg shadow-sm border flex items-center gap-4">
-              <div className="bg-blue-100 p-3 rounded-full">
-                <Mail className="text-blue-600" />
+            <div className="bg-white p-4 sm:p-5 rounded-lg shadow-sm border flex items-center gap-3 sm:gap-4">
+              <div className="bg-blue-100 p-2 sm:p-3 rounded-full">
+                <Mail className="text-blue-600" size={18} />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Email</p>
-                <p className="font-semibold">bdelectronicsstore@gmail.com</p>
+                <p className="text-xs sm:text-sm text-gray-500">Email</p>
+                <p className="font-semibold text-sm sm:text-base break-all">
+                  bdelectronicsstore@gmail.com
+                </p>
               </div>
             </div>
 
-            <div className="bg-white p-5 rounded-lg shadow-sm border flex items-center gap-4">
-              <div className="bg-blue-100 p-3 rounded-full">
-                <MapPin className="text-blue-600" />
+            <div className="bg-white p-4 sm:p-5 rounded-lg shadow-sm border flex items-center gap-3 sm:gap-4">
+              <div className="bg-blue-100 p-2 sm:p-3 rounded-full">
+                <MapPin className="text-blue-600" size={18} />
               </div>
               <div>
-                <p className="text-sm text-gray-500">Location</p>
-                <p className="font-semibold">Chittagong, Bangladesh</p>
+                <p className="text-xs sm:text-sm text-gray-500">Location</p>
+                <p className="font-semibold text-sm sm:text-base">
+                  Chittagong, Bangladesh
+                </p>
               </div>
             </div>
 
@@ -145,19 +156,20 @@ export function Contact() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="bg-white p-5 rounded-lg shadow-sm border flex items-center gap-4 hover:shadow-md transition cursor-pointer">
-
-                <div className="bg-blue-100 p-3 rounded-full">
-                  <MessageCircle className="text-blue-600" />
+              <div className="bg-white p-4 sm:p-5 rounded-lg shadow-sm border flex items-center gap-3 sm:gap-4 hover:shadow-md transition cursor-pointer">
+                <div className="bg-blue-100 p-2 sm:p-3 rounded-full">
+                  <MessageCircle className="text-blue-600" size={18} />
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">WhatsApp</p>
-                  <p className="font-semibold">+880 1328-105216</p>
+                  <p className="text-xs sm:text-sm text-gray-500">WhatsApp</p>
+                  <p className="font-semibold text-sm sm:text-base">
+                    +880 1328-105216
+                  </p>
                 </div>
-
               </div>
             </a>
+
           </div>
         </div>
       </section>

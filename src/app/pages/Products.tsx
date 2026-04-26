@@ -64,7 +64,7 @@ export function Products() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-6 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4640c2] focus:border-transparent outline-none transition-all"
+                className="px-6 cursor-pointer py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#4640c2] focus:border-transparent outline-none transition-all"
               >
                 {categories.map((category) => (
                   <option key={category} value={category}>

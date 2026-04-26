@@ -74,10 +74,6 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             {product.name}
           </h3>
 
-          <div className="flex items-center gap-1 mb-2">
-            <Star className="w-4 h-4 fill-[#ff6b35] text-[#ff6b35]" />
-            <span className="text-sm text-gray-600">{product.rating}</span>
-          </div>
 
           <div className="flex items-center gap-2 mb-4">
             <span className="text-blue-600 font-bold text-lg">

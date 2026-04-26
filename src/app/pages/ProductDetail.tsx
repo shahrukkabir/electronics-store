@@ -9,23 +9,6 @@ import { ProductCard } from '../components/ProductCard';
 import { OrderModal } from '../components/OrderModal';
 import { Seo } from '../components/Seo';
 
-const serviceCards = [
-  {
-    icon: Truck,
-    title: 'Fast Delivery',
-    description: 'Quick dispatch with cash on delivery support.',
-  },
-  {
-    icon: Shield,
-    title: 'Quality Checked',
-    description: 'Each product is checked before shipping.',
-  },
-  {
-    icon: Package,
-    title: 'Safe Packaging',
-    description: 'Secure packing for safer delivery handling.',
-  },
-];
 
 export function ProductDetail() {
   const { id } = useParams();
@@ -161,18 +144,13 @@ export function ProductDetail() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="flex flex-col"
               >
-                <div className="flex items-center gap-2 text-[#2b3454]">
-                  <Star className="w-6 h-6 fill-[#4640c2] text-[#4640c2]" />
-                  <span className="text-3xl font-bold leading-none">{product.rating}</span>
-                  <span className="text-lg text-gray-500">(234 reviews)</span>
-                </div>
 
-                <h1 className="mt-5 text-4xl md:text-5xl font-bold text-[#131d3a] leading-[1.05]">
+                <h1 className="mt-5 text-3xl md:text-4xl font-bold text-[#131d3a] leading-[1.05]">
                   {product.name}
                 </h1>
 
                 <div className="mt-6 flex flex-wrap items-end gap-4">
-                  <span className="text-5xl font-bold text-[#4640c2]">
+                  <span className="text-3xl font-bold text-[#4640c2]">
                     Tk {product.price.toFixed(2)}
                   </span>
                   <div className="pb-1">
@@ -243,19 +221,6 @@ export function ProductDetail() {
                   >
                    Order Now - (COD)
                   </motion.button>
-                </div>
-
-                <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                  {serviceCards.map((card) => (
-                    <div
-                      key={card.title}
-                      className="rounded-[22px] border border-[#e1e6ff] bg-[#f8f9ff] p-4"
-                    >
-                      <card.icon className="w-6 h-6 text-[#4640c2]" />
-                      <h3 className="mt-4 text-base font-semibold text-[#1a2340]">{card.title}</h3>
-                      <p className="mt-1 text-sm leading-6 text-[#66708d]">{card.description}</p>
-                    </div>
-                  ))}
                 </div>
               </motion.div>
             </div>
